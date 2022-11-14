@@ -14,4 +14,4 @@ You will have access to Swagger API documentation in this link:
 
 `http://localhost:8080/swagger-ui/index.html`
 
-There you can test any api that you whant.
+There you can test any api that you want.

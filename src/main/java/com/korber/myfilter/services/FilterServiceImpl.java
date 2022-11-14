@@ -10,6 +10,8 @@ import com.korber.myfilter.db.repositories.ScreenRepository;
 import com.korber.myfilter.db.repositories.UserRepository;
 import com.korber.myfilter.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -75,8 +77,9 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
-    public List<MyFilter> listAllActiveFilters() {
-        return filterRepository.findAll();
+    public List<MyFilter> listAllActiveFilters(Pageable pageable) {
+        Page<MyFilter> filters = filterRepository.findAll(pageable);
+        return filters.getContent();
     }
 
     @Override
