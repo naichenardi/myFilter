@@ -23,6 +23,7 @@ public class AuditingService implements AuditorAware<String> {
     @PreUpdate
     private void beforeUpdate(MyFilter filter) {
         filter.setUpdatedAt(LocalDateTime.now());
+        filter.setUpdatedBy(filter.getUser().getId());
         filter.addVersion();
     }
 

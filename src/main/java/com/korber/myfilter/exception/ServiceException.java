@@ -3,8 +3,8 @@ package com.korber.myfilter.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-public class ServiceException extends Exception{
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class ServiceException extends RuntimeException{
     public ServiceException() {
         super();
     }

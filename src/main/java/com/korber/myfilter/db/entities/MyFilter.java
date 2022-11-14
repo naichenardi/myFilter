@@ -185,4 +185,12 @@ public class MyFilter implements Serializable {
                 ", version=" + version +
                 '}';
     }
+
+    public void fillFields(MyFilter myFilter) {
+        setData(myFilter.getData());
+        setName(myFilter.getName());
+        setScreen(myFilter.getScreen());
+        setUser(myFilter.getUser());
+        setOutputFilter(myFilter.getOutputFilter());
+    }
 }

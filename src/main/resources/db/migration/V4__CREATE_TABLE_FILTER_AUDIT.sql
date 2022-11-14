@@ -1,6 +1,6 @@
 CREATE TABLE myfilter_audit
 (
-    id SERIAL PRIMARY KEY,
+    id integer,
     filter_id UUID NOT NULL,
     user_id UUID NOT NULL,
     parent_id UUID,

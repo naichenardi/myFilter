@@ -65,6 +65,7 @@ public class MyFilterAudit implements Serializable {
 
     public MyFilterAudit(MyFilter filter) {
         MyFilterAudit(
+                filter.getVersion(),
                 filter,
                 filter.getUser(),
                 filter.getName(),
@@ -83,7 +84,8 @@ public class MyFilterAudit implements Serializable {
 
     }
 
-    void MyFilterAudit(MyFilter filterId, User user, String name, String data, String outputFilter, Screen screen, MyFilter parent, UUID createdBy, LocalDateTime createdAt, UUID updatedBy, LocalDateTime updatedAt, StatusFilter status) {
+    void MyFilterAudit(int version, MyFilter filterId, User user, String name, String data, String outputFilter, Screen screen, MyFilter parent, UUID createdBy, LocalDateTime createdAt, UUID updatedBy, LocalDateTime updatedAt, StatusFilter status) {
+        this.version = version;
         this.filterId = filterId;
         this.user = user;
         this.name = name;
