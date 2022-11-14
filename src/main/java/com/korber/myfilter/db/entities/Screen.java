@@ -26,6 +26,9 @@ public class Screen {
         this.contentjson = contentjson;
     }
 
+    public Screen() {
+    }
+
     public String getContentjson() {
         return contentjson;
     }

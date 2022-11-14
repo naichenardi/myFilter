@@ -1,5 +1,6 @@
 package com.korber.myfilter.db.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.korber.myfilter.db.entities.enumm.StatusFilter;
 import com.korber.myfilter.listeners.AuditingService;
 import org.hibernate.annotations.GenericGenerator;
@@ -126,10 +127,6 @@ public class MyFilter implements Serializable {
 
     public UUID getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public UUID getCreatedBy() {

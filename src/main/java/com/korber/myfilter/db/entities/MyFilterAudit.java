@@ -16,7 +16,6 @@ import java.util.UUID;
 public class MyFilterAudit implements Serializable {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int version;
 
     @ManyToOne

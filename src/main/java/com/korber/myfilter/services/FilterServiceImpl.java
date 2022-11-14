@@ -32,20 +32,25 @@ public class FilterServiceImpl implements FilterService{
 
     @Override
     public MyFilter save(MyFilter myFilter) {
-        if (myFilter.getUser() != null){
-            Optional<User> user = userRepository.findById(myFilter.getUser().getId());
-            user.ifPresent(myFilter::setUser);
+        try {
+            if (myFilter.getUser() != null){
+                Optional<User> user = userRepository.findById(myFilter.getUser().getId());
+                user.ifPresent(myFilter::setUser);
+            }
+            if (myFilter.getScreen() != null){
+                Optional<Screen> screen = screenRepository.findById(myFilter.getScreen().getId());
+                screen.ifPresent(myFilter::setScreen);
+            }
+
+            MyFilter filter = filterRepository.saveAndFlush(myFilter);
+
+            auditRepository.saveAndFlush(new MyFilterAudit(filter));
+
+            return filter;
+        } catch (Exception e){
+            e.printStackTrace();
         }
-        if (myFilter.getScreen() != null){
-            Optional<Screen> screen = screenRepository.findById(myFilter.getScreen().getId());
-            screen.ifPresent(myFilter::setScreen);
-        }
-
-        MyFilter filter = filterRepository.save(myFilter);
-
-        auditRepository.saveAndFlush(new MyFilterAudit(filter));
-
-        return filter;
+        return null;
     }
 
     @Override

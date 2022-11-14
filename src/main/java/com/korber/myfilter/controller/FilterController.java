@@ -1,10 +1,9 @@
 package com.korber.myfilter.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.korber.myfilter.db.entities.MyFilter;
 import com.korber.myfilter.services.FilterService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/filter")
@@ -15,21 +14,9 @@ public class FilterController {
         this.service = service;
     }
 
-    @GetMapping
-    @ResponseBody
-    public List<MyFilter> getAllActiveFilters(){
-        return service.listAllActiveFilters();
-    }
-
-    @PostMapping
+    @PostMapping(produces = "application/json")
     @ResponseBody
     public MyFilter save(@RequestBody MyFilter filter){
         return service.save(filter);
-    }
-
-    @PutMapping
-    @ResponseBody
-    public MyFilter update(@RequestBody MyFilter filter){
-        return service.update(filter);
     }
 }

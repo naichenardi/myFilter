@@ -33,7 +33,6 @@ public class AuditingService implements AuditorAware<String> {
         filter.addVersion();
     }
 
-
     @Override
     public Optional<String> getCurrentAuditor() {
         return Optional.empty();
