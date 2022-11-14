@@ -72,7 +72,7 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
-    public void delete(MyFilter myFilter) {
-        filterRepository.delete(myFilter);
+    public void delete(UUID id) {
+        filterRepository.deleteById(id);
     }
 }

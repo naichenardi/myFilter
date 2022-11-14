@@ -4,6 +4,8 @@ import com.korber.myfilter.db.entities.enumm.StatusFilter;
 import com.korber.myfilter.exception.ServiceException;
 import com.korber.myfilter.listeners.AuditingService;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -18,6 +20,8 @@ import java.util.UUID;
 @Table(name = "myfilter")
 @Entity
 @EntityListeners(AuditingService.class)
+@SQLDelete(sql = "UPDATE myfilter SET deleted = true WHERE id=uuid(?)")
+@Where(clause = "deleted = false")
 public class MyFilter implements Serializable, Cloneable {
     @Id
     @Column(name = "id", nullable = false)
@@ -69,6 +73,13 @@ public class MyFilter implements Serializable, Cloneable {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+    @Column(name = "deleted")
+    private Boolean deleted = Boolean.FALSE;
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
 
     public MyFilter() {
     }

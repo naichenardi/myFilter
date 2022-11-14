@@ -1,2 +1,2 @@
 ALTER TABLE myfilter
-ADD COLUMN deleted_at timestamp;
+ADD COLUMN deleted bool default false;
