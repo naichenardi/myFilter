@@ -21,6 +21,15 @@ public class Screen {
     @Column(name = "contentjson")
     private String contentjson;
 
+    public Screen(String name, String contentjson) {
+        this.name = name;
+        this.contentjson = contentjson;
+    }
+
+    public Screen() {
+
+    }
+
     public String getContentjson() {
         return contentjson;
     }
