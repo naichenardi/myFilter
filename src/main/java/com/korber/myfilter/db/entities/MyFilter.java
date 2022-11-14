@@ -20,7 +20,7 @@ import java.util.UUID;
 @Table(name = "myfilter")
 @Entity
 @EntityListeners(AuditingService.class)
-@SQLDelete(sql = "UPDATE myfilter SET deleted = true WHERE id=uuid(?)")
+@SQLDelete(sql = "UPDATE myfilter SET deleted = true, status = 'DELETED' WHERE id=uuid(?)")
 @Where(clause = "deleted = false")
 public class MyFilter implements Serializable, Cloneable {
     @Id

@@ -8,4 +8,6 @@ public interface BranchesService {
     void deprecateBranchesFromFilter(UUID filterId);
 
     MyFilter createBranch(UUID idFilter) ;
+
+    void updateAllBranches(MyFilter filter);
 }

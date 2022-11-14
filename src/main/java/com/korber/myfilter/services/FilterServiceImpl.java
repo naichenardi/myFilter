@@ -39,11 +39,15 @@ public class FilterServiceImpl implements FilterService {
         try {
             if (myFilter.getUser() != null) {
                 Optional<User> user = userRepository.findById(myFilter.getUser().getId());
-                myFilter.setUser(user.orElseThrow(() -> {throw new ServiceException("User id not found!");}));
+                myFilter.setUser(user.orElseThrow(() -> {
+                    throw new ServiceException("User id not found!");
+                }));
             }
             if (myFilter.getScreen() != null) {
                 Optional<Screen> screen = screenRepository.findById(myFilter.getScreen().getId());
-                myFilter.setScreen(screen.orElseThrow(() -> {throw new ServiceException("Screen id not found!");}));
+                myFilter.setScreen(screen.orElseThrow(() -> {
+                    throw new ServiceException("Screen id not found!");
+                }));
             }
 
             MyFilter filter = filterRepository.saveAndFlush(myFilter);
@@ -57,12 +61,16 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
-    public MyFilter update(String id,boolean deprecateBranches, MyFilter myFilter) throws ServiceException {
+    public MyFilter update(String id, boolean deprecateBranches, MyFilter myFilter) throws ServiceException {
         Optional<MyFilter> filterDB = filterRepository.findById(UUID.fromString(id));
         MyFilter filter = filterDB.orElseThrow(ServiceException::new);
         filter.fillFields(myFilter);
         auditRepository.saveAndFlush(new MyFilterAudit(filter));
-        branchesService.deprecateBranchesFromFilter(filter.getId());
+        if (deprecateBranches)
+            branchesService.deprecateBranchesFromFilter(filter.getId());
+        else
+            branchesService.updateAllBranches(filter);
+
         return filterRepository.saveAndFlush(filter);
     }
 

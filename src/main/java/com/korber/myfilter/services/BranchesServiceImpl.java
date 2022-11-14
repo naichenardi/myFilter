@@ -2,6 +2,7 @@ package com.korber.myfilter.services;
 
 import com.korber.myfilter.db.entities.MyFilter;
 import com.korber.myfilter.db.entities.MyFilterAudit;
+import com.korber.myfilter.db.entities.enumm.StatusFilter;
 import com.korber.myfilter.db.repositories.MyFilterAuditRepository;
 import com.korber.myfilter.db.repositories.MyFilterRepository;
 import com.korber.myfilter.exception.ServiceException;
@@ -24,7 +25,7 @@ public class BranchesServiceImpl implements BranchesService{
 
     @Override
     public void deprecateBranchesFromFilter(UUID filterId) {
-        filterRepository.deprecateBranchesByIdFilter(filterId);
+        filterRepository.deprecateBranchesByIdFilter(StatusFilter.DEPRECATED.name(), filterId);
     }
 
     @Override
@@ -37,6 +38,11 @@ public class BranchesServiceImpl implements BranchesService{
         MyFilter branch = filter.createBranch();
 
         return saveFilter(branch);
+    }
+
+    @Override
+    public void updateAllBranches(MyFilter filter) {
+        filterRepository.updateAllBranches(filter.getVersion(), filter.getId());
     }
 
     private MyFilter saveFilter(MyFilter branch) {
