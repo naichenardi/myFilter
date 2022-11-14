@@ -1,6 +1,6 @@
 package com.korber.myfilter.db.repository;
 
-import com.korber.myfilter.db.model.User;
+import com.korber.myfilter.db.entities.User;
 import com.korber.myfilter.db.repositories.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

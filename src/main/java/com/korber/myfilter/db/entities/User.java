@@ -1,13 +1,14 @@
-package com.korber.myfilter.db.model;
+package com.korber.myfilter.db.entities;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Table(name = "users")
 @Entity
-public class User {
+public class User implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     @GenericGenerator(name = "UUIDGenerator", strategy = "uuid2")

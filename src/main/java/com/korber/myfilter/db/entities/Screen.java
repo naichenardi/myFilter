@@ -1,4 +1,4 @@
-package com.korber.myfilter.db.model;
+package com.korber.myfilter.db.entities;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -24,10 +24,6 @@ public class Screen {
     public Screen(String name, String contentjson) {
         this.name = name;
         this.contentjson = contentjson;
-    }
-
-    public Screen() {
-
     }
 
     public String getContentjson() {
