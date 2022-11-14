@@ -1,7 +1,7 @@
 package com.korber.myfilter.db.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.korber.myfilter.db.entities.enumm.StatusFilter;
+import com.korber.myfilter.exception.ServiceException;
 import com.korber.myfilter.listeners.AuditingService;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedBy;
@@ -18,7 +18,7 @@ import java.util.UUID;
 @Table(name = "myfilter")
 @Entity
 @EntityListeners(AuditingService.class)
-public class MyFilter implements Serializable {
+public class MyFilter implements Serializable, Cloneable {
     @Id
     @Column(name = "id", nullable = false)
     @GenericGenerator(name = "UUIDGenerator", strategy = "uuid2")
@@ -184,6 +184,20 @@ public class MyFilter implements Serializable {
                 ", screen=" + screen +
                 ", version=" + version +
                 '}';
+    }
+
+    public MyFilter createBranch()  {
+        try {
+            MyFilter clone = (MyFilter) super.clone();
+
+            clone.setParent(this);
+            clone.setStatus(StatusFilter.DRAFT);
+            clone.id = UUID.randomUUID();
+
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new ServiceException();
+        }
     }
 
     public void fillFields(MyFilter myFilter) {

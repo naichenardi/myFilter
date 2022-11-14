@@ -1,7 +1,6 @@
 package com.korber.myfilter.controller;
 
 import com.korber.myfilter.db.entities.MyFilter;
-import com.korber.myfilter.db.entities.enumm.StatusFilter;
 import com.korber.myfilter.exception.ServiceException;
 import com.korber.myfilter.services.FilterService;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,7 @@ public class FilterController {
 
     @PostMapping(produces = "application/json")
     @ResponseBody
-    public MyFilter save(@RequestBody MyFilter filter){
+    public MyFilter create(@RequestBody MyFilter filter){
         return service.save(filter);
     }
 
