@@ -1,8 +1,10 @@
 package com.korber.myfilter.controller;
 
 import com.korber.myfilter.db.entities.MyFilter;
+import com.korber.myfilter.exception.ServiceException;
 import com.korber.myfilter.services.BranchesService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -26,4 +28,11 @@ public class BranchController {
     public void merge(@PathVariable("branch_id") String branchId) {
         service.mergeBranch(UUID.fromString(branchId));
     }
+
+    @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public MyFilter update(@PathVariable String id, @RequestBody MyFilter branch) throws ServiceException {
+        return service.updateBranch(UUID.fromString(id), branch);
+    }
+
 }

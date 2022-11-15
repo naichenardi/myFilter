@@ -58,6 +58,14 @@ public class BranchesServiceImpl implements BranchesService {
         });
     }
 
+    @Override
+    public MyFilter updateBranch(UUID id, MyFilter branch) {
+        Optional<MyFilter> branchDB = filterRepository.findById(id);
+        MyFilter filter = branchDB.orElseThrow(ServiceException::new);
+        filter.merge(branch);
+        return saveFilter(filter);
+    }
+
     private MyFilter saveFilter(MyFilter branch) {
         auditRepository.saveAndFlush(new MyFilterAudit(filterRepository.saveAndFlush(branch)));
         return branch;

@@ -12,4 +12,6 @@ public interface BranchesService {
     void updateAllBranches(MyFilter filter);
 
     void mergeBranch(UUID fromString);
+
+    MyFilter updateBranch(UUID idBranch, MyFilter branch);
 }
