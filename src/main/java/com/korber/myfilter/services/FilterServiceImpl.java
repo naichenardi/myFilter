@@ -66,24 +66,28 @@ public class FilterServiceImpl implements FilterService {
     public MyFilter update(String id, boolean deprecateBranches, MyFilter myFilter) throws ServiceException {
         Optional<MyFilter> filterDB = filterRepository.findById(UUID.fromString(id));
         MyFilter filter = filterDB.orElseThrow(ServiceException::new);
-        filter.fillFields(myFilter);
-        auditRepository.saveAndFlush(new MyFilterAudit(filter));
+        filter.merge(myFilter);
+
         if (deprecateBranches)
             branchesService.deprecateBranchesFromFilter(filter.getId());
         else
             branchesService.updateAllBranches(filter);
 
-        return filterRepository.saveAndFlush(filter);
+        return saveFilter(filter);
     }
 
     @Override
-    public List<MyFilter> listAllActiveFilters(Pageable pageable) {
-        Page<MyFilter> filters = filterRepository.findAll(pageable);
-        return filters.getContent();
+    public Page<MyFilter> listAllActiveFilters(Pageable pageable) {
+        return filterRepository.findAllByParentIsNull(pageable);
     }
 
     @Override
     public void delete(UUID id) {
         filterRepository.deleteById(id);
+    }
+
+    private MyFilter saveFilter(MyFilter filter) {
+        auditRepository.saveAndFlush(new MyFilterAudit(filterRepository.saveAndFlush(filter)));
+        return filter;
     }
 }

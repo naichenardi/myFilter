@@ -3,6 +3,7 @@ package com.korber.myfilter.controller;
 import com.korber.myfilter.db.entities.MyFilter;
 import com.korber.myfilter.exception.ServiceException;
 import com.korber.myfilter.services.FilterService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,7 +45,7 @@ public class FilterController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<MyFilter> getAllUsers(
+    public Page<MyFilter> getAllFilters(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         return service.listAllActiveFilters(PageRequest.of(page, size));

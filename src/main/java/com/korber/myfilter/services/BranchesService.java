@@ -10,4 +10,6 @@ public interface BranchesService {
     MyFilter createBranch(UUID idFilter) ;
 
     void updateAllBranches(MyFilter filter);
+
+    void mergeBranch(UUID fromString);
 }

@@ -2,6 +2,7 @@ package com.korber.myfilter.controller;
 
 import com.korber.myfilter.db.entities.MyFilter;
 import com.korber.myfilter.services.BranchesService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -18,5 +19,11 @@ public class BranchController {
     @PostMapping(path = "/{filter_id}", produces = "application/json")
     public MyFilter create(@PathVariable("filter_id") String filterId) {
         return service.createBranch(UUID.fromString(filterId));
+    }
+
+    @PostMapping(path = "/{branch_id}/merge", produces = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void merge(@PathVariable("branch_id") String branchId) {
+        service.mergeBranch(UUID.fromString(branchId));
     }
 }

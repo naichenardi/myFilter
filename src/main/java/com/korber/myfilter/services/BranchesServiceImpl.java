@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class BranchesServiceImpl implements BranchesService{
+public class BranchesServiceImpl implements BranchesService {
     private final MyFilterRepository filterRepository;
     private final MyFilterAuditRepository auditRepository;
 
@@ -43,6 +43,19 @@ public class BranchesServiceImpl implements BranchesService{
     @Override
     public void updateAllBranches(MyFilter filter) {
         filterRepository.updateAllBranches(filter.getVersion(), filter.getId());
+    }
+
+    @Override
+    public void mergeBranch(UUID branchId) {
+        Optional<MyFilter> filter = filterRepository.findByIdAndParentIsNotNull(branchId);
+
+        filter.ifPresentOrElse(f -> {
+            f.getParent().merge(f);
+            saveFilter(f);
+            deprecateBranchesFromFilter(f.getParent().getId());
+        }, () -> {
+            throw new ServiceException("Branch no found!");
+        });
     }
 
     private MyFilter saveFilter(MyFilter branch) {

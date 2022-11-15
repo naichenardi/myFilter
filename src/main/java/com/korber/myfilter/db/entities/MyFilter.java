@@ -37,7 +37,6 @@ public class MyFilter implements Serializable, Cloneable {
     @Column(name = "name")
     private String name;
 
-    @Lob
     @Column(name = "data")
     private String data;
 
@@ -211,11 +210,12 @@ public class MyFilter implements Serializable, Cloneable {
         }
     }
 
-    public void fillFields(MyFilter myFilter) {
+    public void merge(MyFilter myFilter) {
         setData(myFilter.getData());
         setName(myFilter.getName());
         setScreen(myFilter.getScreen());
         setUser(myFilter.getUser());
         setOutputFilter(myFilter.getOutputFilter());
     }
+
 }

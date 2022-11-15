@@ -165,4 +165,8 @@ public class MyFilterAudit implements Serializable {
                 ", updatedAt=" + updatedAt +
                 '}';
     }
+
+    public void addVersion() {
+        version++;
+    }
 }
